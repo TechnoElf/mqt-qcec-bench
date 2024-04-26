@@ -1,0 +1,3 @@
+[submodule "extern/mqt-qcec"]
+	path = extern/mqt-qcec
+	url = https://github.com/TechnoElf/mqt-qcec.git
