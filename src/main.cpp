@@ -1,35 +1,26 @@
-#include <chrono>
+#include "bench.h"
+
 #include <iostream>
 
-#include <EquivalenceCheckingManager.hpp>
-
-const ec::Configuration CONFIG = {
-    {dd::RealNumber::eps, true,
-     std::max(2U, std::thread::hardware_concurrency()), 0.0, false, false, true,
-     false},
-    {false, false, false, false, false, false},
-    {},
-    {},
-    {},
-    {}};
-
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
-  ec::Configuration c             = CONFIG;
-  c.application.alternatingScheme = ec::ApplicationSchemeType::Diff;
-  qc::QuantumComputation qc1;
-  qc::QuantumComputation qc2;
-  qc1.import("./circuits/shor_15_4_nativegates_ibm_qiskit_opt0_18.qasm");
-  qc2.import("./circuits/shor_15_4_nativegates_ibm_qiskit_opt2_18.qasm");
+  std::cout << "dj ng0 / ng3: ";
+  runBenchmark("./circuits/dj_nativegates_ibm_qiskit_opt0_8.qasm",
+               "./circuits/dj_nativegates_ibm_qiskit_opt3_8.qasm",
+               10, true, true)
+      .print();
+  std::cout << "\n";
+  
+  std::cout << "grover ng0 / ng3: ";
+  runBenchmark("./circuits/grover-noancilla_nativegates_ibm_qiskit_opt0_8.qasm",
+               "./circuits/grover-noancilla_nativegates_ibm_qiskit_opt3_8.qasm",
+               10, true, true)
+      .print();
+  std::cout << "\n";
 
-  const auto begin = std::chrono::high_resolution_clock::now();
-
-  ec::EquivalenceCheckingManager ecm(qc1, qc2, c);
-  ecm.run();
-  const size_t totalPeakUniqueTableSize = ecm.getResults().peakUniqueTableSize;
-
-  const auto end = std::chrono::high_resolution_clock::now();
-  const std::chrono::duration<double> runTime = end - begin;
-
-  std::cout << runTime << "\n";
-  std::cout << "peak unique node count = " << totalPeakUniqueTableSize << "\n";
+  std::cout << "shor_15_4 ng0 / ng2: ";
+  runBenchmark("./circuits/shor_15_4_nativegates_ibm_qiskit_opt0_18.qasm",
+               "./circuits/shor_15_4_nativegates_ibm_qiskit_opt2_18.qasm", 5,
+               true, false)
+      .print();
+  std::cout << "\n";
 }
