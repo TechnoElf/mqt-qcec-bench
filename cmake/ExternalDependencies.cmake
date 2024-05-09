@@ -30,5 +30,26 @@ else()
   endif()
 endif()
 
+set(TCLAP_VERSION
+        1.4.0-rc1
+        CACHE STRING "TCLAP version")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+  FetchContent_Declare(
+          tclap
+          GIT_REPOSITORY https://git.code.sf.net/p/tclap/code
+          GIT_TAG ${TCLAP_VERSION}
+          FIND_PACKAGE_ARGS)
+  list(APPEND FETCH_PACKAGES tclap)
+else()
+  find_package(tclap ${TCLAP_VERSION} QUIET)
+  if(NOT tclap_FOUND)
+    FetchContent_Declare(
+            tclap
+            GIT_REPOSITORY https://git.code.sf.net/p/tclap/code
+            GIT_TAG ${TCLAP_VERSION})
+    list(APPEND FETCH_PACKAGES tclap)
+  endif()
+endif()
+
 # Make all declared dependencies available.
 FetchContent_MakeAvailable(${FETCH_PACKAGES})

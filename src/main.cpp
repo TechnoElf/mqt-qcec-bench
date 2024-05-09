@@ -1,26 +1,30 @@
-#include "bench.h"
+#include "trial.h"
 
+#include <fstream>
 #include <iostream>
+#include <optional>
+#include <tclap/CmdLine.h>
 
-int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
-  std::cout << "dj ng0 / ng3: ";
-  runBenchmark("./circuits/dj_nativegates_ibm_qiskit_opt0_8.qasm",
-               "./circuits/dj_nativegates_ibm_qiskit_opt3_8.qasm",
-               10, true, true)
-      .print();
-  std::cout << "\n";
-  
-  std::cout << "grover ng0 / ng3: ";
-  runBenchmark("./circuits/grover-noancilla_nativegates_ibm_qiskit_opt0_8.qasm",
-               "./circuits/grover-noancilla_nativegates_ibm_qiskit_opt3_8.qasm",
-               10, true, true)
-      .print();
-  std::cout << "\n";
+int main(int argc, char** argv) {
+  std::optional<std::fstream> output = {};
 
-  std::cout << "shor_15_4 ng0 / ng2: ";
-  runBenchmark("./circuits/shor_15_4_nativegates_ibm_qiskit_opt0_18.qasm",
-               "./circuits/shor_15_4_nativegates_ibm_qiskit_opt2_18.qasm", 5,
-               true, false)
-      .print();
-  std::cout << "\n";
+  try {
+    TCLAP::CmdLine cmd("MQT QCEC Benchmarking Tool", ' ', "0.1.0");
+    const TCLAP::ValueArg<std::string> outputArg("o", "output", "File path to write results to in CSV format.", false, "", "path", cmd);
+    cmd.parse(argc, argv);
+
+    std::fstream maybeOutput = std::fstream(outputArg.getValue(), std::ios::out);
+    if (maybeOutput.is_open()) {
+      output = std::move(maybeOutput);
+    }
+  } catch (const TCLAP::ArgException& e) {
+    std::cerr << "error: " << e.error() << " for arg " << e.argId() << "\n";
+  }
+
+  TrialResults res = runTrial();
+  res.print();
+
+  if (output) {
+    res.save(*output, ",");
+  }
 }

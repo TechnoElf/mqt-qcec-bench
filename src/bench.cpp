@@ -11,6 +11,7 @@
 
 void BenchmarkResults::print() const {
   std::cout << "BenchmarkResults {\n"
+            << "  name = " << this->name << "\n"
             << "  runCount = " << this->runCount << "\n"
             << "  runProp = " << this->runProp << "\n"
             << "  runDiff = " << this->runDiff << "\n"
@@ -25,8 +26,9 @@ void BenchmarkResults::print() const {
             << "}\n";
 }
 
-BenchmarkResults runBenchmark(const std::string& a, const std::string& b,
-                              size_t runCount, bool runDiff, bool runProp) {
+BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
+                              const std::string& b, size_t runCount,
+                              bool runDiff, bool runProp) {
   std::vector<BenchmarkInstanceResults> diffResults;
   std::vector<BenchmarkInstanceResults> propResults;
 
@@ -60,6 +62,7 @@ BenchmarkResults runBenchmark(const std::string& a, const std::string& b,
   }
 
   return BenchmarkResults{
+      .name            = name,
       .runCount        = runCount,
       .runDiff         = runDiff,
       .runProp         = runProp,
