@@ -171,6 +171,8 @@ Thumbs.db
 out/build
 results.csv
 results.svg
+time.svg
+nodes.svg
 
 # nix
 .direnv

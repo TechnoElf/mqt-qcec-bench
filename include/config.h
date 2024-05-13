@@ -6,5 +6,10 @@
 
 #include <EquivalenceCheckingManager.hpp>
 
-ec::Configuration makeDiffConfig();
-ec::Configuration makeProportionalConfig();
+struct Configuration {
+  ec::Configuration ecConfig;
+
+public:
+  static Configuration makeDiff();
+  static Configuration makeProportional();
+};

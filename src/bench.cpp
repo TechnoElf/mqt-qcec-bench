@@ -13,42 +13,38 @@ void BenchmarkResults::print() const {
   std::cout << "BenchmarkResults {\n"
             << "  name = " << this->name << "\n"
             << "  runCount = " << this->runCount << "\n"
-            << "  runProp = " << this->runProp << "\n"
-            << "  runDiff = " << this->runDiff << "\n"
-            << "  avgDiffInitTime = " << this->avgDiffInitTime << "\n"
-            << "  avgDiffRunTime = " << this->avgDiffRunTime << "\n"
-            << "  avgPropInitTime = " << this->avgPropInitTime << "\n"
-            << "  avgPropRunTime = " << this->avgPropRunTime << "\n"
-            << "  peakDiffUniqueTableSize = " << this->peakDiffUniqueTableSize
-            << "\n"
-            << "  peakPropUniqueTableSize = " << this->peakPropUniqueTableSize
-            << "\n"
+            << "  runB = " << this->runB << "\n"
+            << "  runA = " << this->runA << "\n"
+            << "  avgAInitTime = " << this->avgAInitTime << "\n"
+            << "  avgARunTime = " << this->avgARunTime << "\n"
+            << "  avgBInitTime = " << this->avgBInitTime << "\n"
+            << "  avgBRunTime = " << this->avgBRunTime << "\n"
+            << "  peakAUniqueTableSize = " << this->peakAUniqueTableSize << "\n"
+            << "  peakBUniqueTableSize = " << this->peakBUniqueTableSize << "\n"
             << "}\n";
 }
 
 BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
-                              const std::string& b, size_t runCount,
-                              bool runDiff, bool runProp) {
-  std::vector<BenchmarkInstanceResults> diffResults;
-  std::vector<BenchmarkInstanceResults> propResults;
-
-  const ec::Configuration diffConfig = makeDiffConfig();
-  const ec::Configuration propConfig = makeProportionalConfig();
+                              const std::string& b, const Configuration& confA,
+                              const Configuration& confB, size_t runCount,
+                              bool runA, bool runB) {
+  std::vector<BenchmarkInstanceResults> resultsA;
+  std::vector<BenchmarkInstanceResults> resultsB;
 
   for (size_t i = 0; i < runCount; i++) {
-    if (runDiff) {
-      diffResults.push_back(runBenchmarkInstance(a, b, diffConfig));
+    if (runA) {
+      resultsA.push_back(runBenchmarkInstance(a, b, confA));
     }
 
-    if (runProp) {
-      propResults.push_back(runBenchmarkInstance(a, b, propConfig));
+    if (runB) {
+      resultsB.push_back(runBenchmarkInstance(a, b, confB));
     }
   }
 
   std::chrono::duration<double> totalDiffInitTime{};
   std::chrono::duration<double> totalDiffRunTime{};
 
-  for (const auto& res : diffResults) {
+  for (const auto& res : resultsA) {
     totalDiffInitTime += res.initTime;
     totalDiffRunTime += res.runTime;
   }
@@ -56,22 +52,22 @@ BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
   std::chrono::duration<double> totalPropInitTime{};
   std::chrono::duration<double> totalPropRunTime{};
 
-  for (const auto& res : propResults) {
+  for (const auto& res : resultsB) {
     totalPropInitTime += res.initTime;
     totalPropRunTime += res.runTime;
   }
 
   return BenchmarkResults{
-      .name            = name,
-      .runCount        = runCount,
-      .runDiff         = runDiff,
-      .runProp         = runProp,
-      .avgDiffInitTime = totalDiffInitTime / runCount,
-      .avgDiffRunTime  = totalDiffRunTime / runCount,
-      .avgPropInitTime = totalPropInitTime / runCount,
-      .avgPropRunTime  = totalPropRunTime / runCount,
-      .peakDiffUniqueTableSize =
-          diffResults.empty() ? 0 : diffResults[0].peakUniqueTableSize,
-      .peakPropUniqueTableSize =
-          propResults.empty() ? 0 : propResults[0].peakUniqueTableSize};
+      .name         = name,
+      .runCount     = runCount,
+      .runA         = runA,
+      .runB         = runB,
+      .avgAInitTime = totalDiffInitTime / runCount,
+      .avgARunTime  = totalDiffRunTime / runCount,
+      .avgBInitTime = totalPropInitTime / runCount,
+      .avgBRunTime  = totalPropRunTime / runCount,
+      .peakAUniqueTableSize =
+          resultsA.empty() ? 0 : resultsA[0].peakUniqueTableSize,
+      .peakBUniqueTableSize =
+          resultsB.empty() ? 0 : resultsB[0].peakUniqueTableSize};
 }

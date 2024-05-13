@@ -5,9 +5,10 @@
 #pragma once
 
 #include "bench.h"
+#include "config.h"
 
-#include <vector>
 #include <fstream>
+#include <vector>
 
 struct TrialResults {
   std::vector<BenchmarkResults> rawResults;
@@ -17,4 +18,4 @@ public:
   void save(std::fstream& out, const std::string& sep) const;
 };
 
-TrialResults runTrial();
+TrialResults runTrial(const Configuration& confA, const Configuration& confB);

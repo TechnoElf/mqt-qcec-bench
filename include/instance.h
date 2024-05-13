@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "config.h"
+
 #include <EquivalenceCheckingManager.hpp>
 #include <chrono>
 #include <string>
@@ -17,6 +19,6 @@ public:
   void print() const;
 };
 
-BenchmarkInstanceResults runBenchmarkInstance(const std::string&       a,
-                                              const std::string&       b,
-                                              const ec::Configuration& c);
+BenchmarkInstanceResults runBenchmarkInstance(const std::string&   a,
+                                              const std::string&   b,
+                                              const Configuration& c);

@@ -14,16 +14,16 @@ void BenchmarkInstanceResults::print() const {
             << "}\n";
 }
 
-BenchmarkInstanceResults runBenchmarkInstance(const std::string&       a,
-                                              const std::string&       b,
-                                              const ec::Configuration& c) {
+BenchmarkInstanceResults runBenchmarkInstance(const std::string&   a,
+                                              const std::string&   b,
+                                              const Configuration& c) {
   qc::QuantumComputation qc1;
   qc::QuantumComputation qc2;
   qc1.import(a);
   qc2.import(b);
 
   const auto timeBegin = std::chrono::high_resolution_clock::now();
-  ec::EquivalenceCheckingManager ecm(qc1, qc2, c);
+  ec::EquivalenceCheckingManager ecm(qc1, qc2, c.ecConfig);
   const auto timeAfterInit = std::chrono::high_resolution_clock::now();
   ecm.run();
   const auto timeEnd = std::chrono::high_resolution_clock::now();
