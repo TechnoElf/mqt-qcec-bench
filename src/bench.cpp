@@ -28,16 +28,20 @@ BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
                               const std::string& b, const Configuration& confA,
                               const Configuration& confB, size_t runCount,
                               bool runA, bool runB) {
+  std::cerr << "Running benchmark \"" << name << "\"\n";
+
   std::vector<BenchmarkInstanceResults> resultsA;
   std::vector<BenchmarkInstanceResults> resultsB;
 
   for (size_t i = 0; i < runCount; i++) {
     if (runA) {
       resultsA.push_back(runBenchmarkInstance(a, b, confA));
+      std::cerr << "A done.\n";
     }
 
     if (runB) {
       resultsB.push_back(runBenchmarkInstance(a, b, confB));
+      std::cerr << "B done.\n";
     }
   }
 

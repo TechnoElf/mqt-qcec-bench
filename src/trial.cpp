@@ -35,6 +35,42 @@ void TrialResults::save(std::fstream& out, const std::string& sep) const {
 TrialResults runTrial(const Configuration& confA, const Configuration& confB) {
   std::vector<BenchmarkResults> rawResults;
 
+  rawResults.push_back(
+      runBenchmark("groundstate_small ng0 / ng3",
+             "./circuits/groundstate_small_nativegates_ibm_qiskit_opt0_4.qasm",
+             "./circuits/groundstate_small_nativegates_ibm_qiskit_opt3_4.qasm",
+             confA, confB, 1, true, true));
+
+  rawResults.push_back(
+      runBenchmark("groundstate_small ind / mp3",
+                   "./circuits/groundstate_small_indep_qiskit_4.qasm",
+                   "./circuits/groundstate_small_mapped_ibm_washington_qiskit_opt3_4.qasm",
+                   confA, confB, 1, true, true));
+
+  rawResults.push_back(
+      runBenchmark("tsp_4 ng0 / ng3",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt0_4.qasm",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt3_4.qasm",
+                   confA, confB, 1, true, true));
+
+  rawResults.push_back(
+      runBenchmark("tsp_4 ind / mp3",
+                   "./circuits/tsp_indep_qiskit_4.qasm",
+                   "./circuits/tsp_mapped_ibm_washington_qiskit_opt3_4.qasm",
+                   confA, confB, 1, true, true));
+
+  rawResults.push_back(
+      runBenchmark("tsp_9 ng0 / ng3",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt0_9.qasm",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt3_9.qasm",
+                   confA, confB, 1, true, true));
+
+  rawResults.push_back(
+      runBenchmark("tsp_16 ng0 / ng3",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt0_16.qasm",
+                   "./circuits/tsp_nativegates_ibm_qiskit_opt3_16.qasm",
+                   confA, confB, 1, true, true));
+
   rawResults.push_back(runBenchmark(
       "grover ng0 / ng3",
       "./circuits/grover-noancilla_nativegates_ibm_qiskit_opt0_8.qasm",

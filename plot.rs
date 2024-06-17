@@ -16,9 +16,12 @@ fn main() {
     let data: Vec<_> = csv::Reader::from_path("results.csv").unwrap().records().collect();
     let time: Vec<(String, f64, f64)> = data.iter().map(|r| r.as_ref().unwrap()).map(|r| (r[0].to_string(), r[1].to_string().parse().unwrap(), r[2].to_string().parse().unwrap())).collect();
     let nodes: Vec<(String, i64, i64)> = data.iter().map(|r| r.as_ref().unwrap()).map(|r| (r[0].to_string(), r[3].to_string().parse().unwrap(), r[4].to_string().parse().unwrap())).collect();
+    let all: Vec<(i64, i64, f64, f64)> = data.iter().map(|r| r.as_ref().unwrap()).map(|r| (r[3].to_string().parse().unwrap(), r[4].to_string().parse().unwrap(), r[1].to_string().parse().unwrap(), r[2].to_string().parse().unwrap())).collect();
 
     let max_time = time.iter().map(|(_, a, b)| [*a, *b]).flatten().fold(0.0, f64::max) * 1.2;
+    let min_time = time.iter().map(|(_, a, b)| [*a, *b]).flatten().fold(0.0, f64::min) * 0.8;
     let max_nodes = nodes.iter().map(|(_, a, b)| [*a as f64, *b as f64]).flatten().fold(0.0, f64::max) * 1.2;
+    let min_nodes = nodes.iter().map(|(_, a, b)| [*a as f64, *b as f64]).flatten().fold(0.0, f64::min) * 0.8;
 
     let root = SVGBackend::new("time.svg", (1000, 600)).into_drawing_area();
     root.fill(&WHITE).unwrap();
@@ -103,4 +106,31 @@ fn main() {
     ).unwrap().label("proportional").legend(|(x, y)| Rectangle::new([(x, y - 5), (x + 10, y + 5)], BLUE.filled()));
 
     chart.configure_series_labels().background_style(&WHITE.mix(0.8)).border_style(&BLACK).draw().unwrap();
+
+    let root = SVGBackend::new("time_nodes.svg", (1000, 1000)).into_drawing_area();
+    root.fill(&WHITE).unwrap();
+
+    let mut chart = ChartBuilder::on(&root)
+        .margin(10)
+        .set_label_area_size(LabelAreaPosition::Bottom, 60)
+        .set_label_area_size(LabelAreaPosition::Left, 60)
+        .caption("QCEC Benchmark", ("sans-serif", 30))
+        .build_cartesian_2d(min_nodes..max_nodes, min_time..max_time).unwrap();
+
+    chart.configure_mesh()
+        .x_desc("Maximum Nodes (count)")
+        .y_desc("Runtime (s)")
+        .draw().unwrap();
+
+    chart.draw_series(
+        all.iter().enumerate().map(|(_, (nodes, _, time, _))| {
+            Circle::new((*nodes as f64, *time), 3, RED.filled())
+        })
+    ).unwrap().label("diff").legend(|(x, y)| Rectangle::new([(x, y - 5), (x + 10, y + 5)], RED.filled()));
+
+    chart.draw_series(
+        all.iter().enumerate().map(|(_, (_, nodes, _, time))| {
+            Circle::new((*nodes as f64, *time), 3, BLUE.filled())
+        })
+    ).unwrap().label("proportional").legend(|(x, y)| Rectangle::new([(x, y - 5), (x + 10, y + 5)], BLUE.filled()));
 }

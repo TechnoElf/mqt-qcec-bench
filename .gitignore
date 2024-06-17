@@ -173,6 +173,8 @@ results.csv
 results.svg
 time.svg
 nodes.svg
+time_nodes.svg
+/circuits/
 
 # nix
 .direnv

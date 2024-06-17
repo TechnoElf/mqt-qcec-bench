@@ -11,7 +11,7 @@ Configuration Configuration::makeDiff() {
                             .parallel           = true,
                             .nthreads =
                                 std::max(2U, std::thread::hardware_concurrency()),
-                            .timeout                = 0.0,
+                            .timeout                = 10.0,
                             .runConstructionChecker = false,
                             .runSimulationChecker   = false,
                             .runAlternatingChecker  = true,
@@ -36,7 +36,7 @@ Configuration Configuration::makeProportional() {
                                      .parallel           = true,
                                      .nthreads           = std::max(
                                      2U, std::thread::hardware_concurrency()),
-                                     .timeout                = 0.0,
+                                     .timeout                = 10.0,
                                      .runConstructionChecker = false,
                                      .runSimulationChecker   = false,
                                      .runAlternatingChecker  = true,
