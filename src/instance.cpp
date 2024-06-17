@@ -16,6 +16,15 @@ void InstanceResults::print() const {
             << "}\n";
 }
 
+InstanceKind InstanceKind::fromStr(const std::string& str) {
+  for (const auto& kind : InstanceKind::kinds) {
+    if (str == std::get<1>(kind)) {
+      return std::get<0>(kind);
+    }
+  }
+  return InstanceKind::IndMp3;
+}
+
 InstanceResults Instance::run(const Configuration& conf) const {
   std::cerr << "Generating instance \"" << this->displayName << "\"\n";
 
@@ -30,7 +39,7 @@ InstanceResults Instance::run(const Configuration& conf) const {
   qc::QuantumComputation qc1;
   qc::QuantumComputation qc2;
 
-  switch (this->kind) {
+  switch (*this->kind) {
   case InstanceKind::IndNg0:
   case InstanceKind::IndNg3:
   case InstanceKind::IndMp0:
@@ -51,7 +60,7 @@ InstanceResults Instance::run(const Configuration& conf) const {
     break;
   }
 
-  switch (this->kind) {
+  switch (*this->kind) {
   case InstanceKind::IndNg0:
     qc2.import(std::format("circuits/{}_ng0.qasm", this->benchmarkName));
     break;

@@ -1,0 +1,17 @@
+[dj_ind_mp3]
+benchmark = "dj"
+
+[random_ind_mp3]
+benchmark = "random"
+kind = "IndNg0"
+size = 4
+
+[tsp_ind_ng0]
+benchmark = "tsp"
+kind = "IndNg0"
+size = 2
+
+[tsp_ng0_ng3]
+benchmark = "tsp"
+kind = "Ng0Ng3"
+size = 2
