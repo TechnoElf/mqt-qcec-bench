@@ -21,15 +21,23 @@ void BenchmarkResults::print() const {
 }
 
 void BenchmarkResults::save(std::fstream& out, const std::string& sep) const {
-  out << "name" << sep << "runTime" << sep << "initTime" << sep
-      << "peakUniqueTableSize\n";
+  out << "name" << sep << "runCount" << sep << "timeOut" << sep << "equivalent"
+      << sep << "deterministic" << sep << "numQubits1" << sep << "numQubits2"
+      << sep << "numGates1" << sep << "numGates2" << sep
+      << "diffEquivalenceCount" << sep << "initTime" << sep << "runTime" << sep
+      << "maxActiveNodes\n";
   for (const InstanceResults& bench : rawResults) {
     std::string runTime = std::format("{}", bench.runTime);
     runTime.pop_back();
     std::string initTime = std::format("{}", bench.initTime);
     initTime.pop_back();
-    out << bench.displayName << sep << runTime << sep << initTime << sep
-        << bench.peakUniqueTableSize << "\n";
+    std::string timeOut = std::format("{}", bench.timeOut);
+    timeOut.pop_back();
+    out << bench.displayName << sep << bench.runCount << sep << timeOut << sep
+        << bench.equivalent << sep << bench.deterministic << sep
+        << bench.numQubits1 << sep << bench.numQubits2 << sep << bench.numGates1
+        << sep << bench.numGates2 << sep << bench.diffEquivalenceCount << sep
+        << initTime << sep << runTime << sep << bench.maxActiveNodes << "\n";
   }
 }
 

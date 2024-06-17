@@ -16,10 +16,16 @@ struct InstanceResults {
   size_t                        runCount;
   std::chrono::duration<double> timeOut;
   bool                          equivalent;
+  bool                          deterministic;
+  size_t                        numQubits1;
+  size_t                        numQubits2;
+  size_t                        numGates1;
+  size_t                        numGates2;
+  size_t                        diffEquivalenceCount;
 
   std::chrono::duration<double> initTime;
   std::chrono::duration<double> runTime;
-  size_t                        peakUniqueTableSize;
+  size_t                        maxActiveNodes;
 
 public:
   void print() const;
@@ -39,29 +45,23 @@ struct InstanceKind {
     Mp0Mp3
   } kind;
 
-  using Kind::IndNg0;
-  using Kind::IndNg3;
   using Kind::IndMp0;
   using Kind::IndMp3;
-  using Kind::Ng0Ng3;
+  using Kind::IndNg0;
+  using Kind::IndNg3;
+  using Kind::Mp0Mp3;
   using Kind::Ng0Mp0;
   using Kind::Ng0Mp3;
+  using Kind::Ng0Ng3;
   using Kind::Ng3Mp0;
   using Kind::Ng3Mp3;
-  using Kind::Mp0Mp3;
 
   static constexpr std::array<std::tuple<Kind, const char*>, 10> kinds = {
-      std::tuple(IndNg0, "IndNg0"),
-      std::tuple(IndNg3, "IndNg3"),
-      std::tuple(IndMp0, "IndMp0"),
-      std::tuple(IndMp3, "IndMp3"),
-      std::tuple(Ng0Ng3, "Ng0Ng3"),
-      std::tuple(Ng0Mp0, "Ng0Mp0"),
-      std::tuple(Ng0Mp3, "Ng0Mp3"),
-      std::tuple(Ng3Mp0, "Ng3Mp0"),
-      std::tuple(Ng3Mp3, "Ng3Mp3"),
-      std::tuple(Mp0Mp3, "Mp0Mp3")
-  };
+      std::tuple(IndNg0, "IndNg0"), std::tuple(IndNg3, "IndNg3"),
+      std::tuple(IndMp0, "IndMp0"), std::tuple(IndMp3, "IndMp3"),
+      std::tuple(Ng0Ng3, "Ng0Ng3"), std::tuple(Ng0Mp0, "Ng0Mp0"),
+      std::tuple(Ng0Mp3, "Ng0Mp3"), std::tuple(Ng3Mp0, "Ng3Mp0"),
+      std::tuple(Ng3Mp3, "Ng3Mp3"), std::tuple(Mp0Mp3, "Mp0Mp3")};
 
 public:
   InstanceKind(Kind kind) : kind(kind) {}
