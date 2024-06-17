@@ -1,5 +1,5 @@
+#include "bench.h"
 #include "config.h"
-#include "trial.h"
 
 #include <fstream>
 #include <iostream>
@@ -16,21 +16,33 @@ int main(int argc, char** argv) {
         "", "path", cmd);
     cmd.parse(argc, argv);
 
-    std::fstream maybeOutput =
-        std::fstream(outputArg.getValue(), std::ios::out);
-    if (maybeOutput.is_open()) {
-      output = std::move(maybeOutput);
-    } else {
-      std::cerr << "error: couldn't open " << outputArg.getValue() << "\n";
-      std::exit(1);
+    if (!outputArg.getValue().empty()) {
+      std::fstream maybeOutput =
+          std::fstream(outputArg.getValue(), std::ios::out);
+      if (maybeOutput.is_open()) {
+        output = std::move(maybeOutput);
+      } else {
+        std::cerr << "error: couldn't open \"" << outputArg.getValue()
+                  << "\"\n";
+        std::exit(1);
+      }
     }
   } catch (const TCLAP::ArgException& e) {
     std::cerr << "error: " << e.error() << " for arg " << e.argId() << "\n";
     std::exit(1);
   }
 
-  const TrialResults res =
-      runTrial(Configuration::makeDiff(), Configuration::makeProportional());
+  Benchmark benchmark;
+  benchmark.add({.displayName   = "dj ind/mp0",
+                 .benchmarkName = "dj",
+                 .kind          = InstanceKind::IndMp0,
+                 .size          = 12});
+  benchmark.add({.displayName   = "tsp ind/mp0",
+                 .benchmarkName = "tsp",
+                 .kind          = InstanceKind::IndMp0,
+                 .size          = 2});
+
+  const BenchmarkResults res = benchmark.run(Configuration::makeDiff());
   res.print();
 
   if (output) {

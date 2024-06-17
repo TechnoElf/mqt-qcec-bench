@@ -51,5 +51,26 @@ else()
   endif()
 endif()
 
+set(TOMLPLUSPLUS_VERSION
+        v3.4.0
+        CACHE STRING "toml++ version")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.24)
+  FetchContent_Declare(
+          tomlplusplus
+          GIT_REPOSITORY https://github.com/marzer/tomlplusplus.git
+          GIT_TAG ${TOMLPLUSPLUS_VERSION}
+          FIND_PACKAGE_ARGS)
+  list(APPEND FETCH_PACKAGES tomlplusplus)
+else()
+  find_package(tomlplusplus ${TOMLPLUSPLUS_VERSION} QUIET)
+  if(NOT tomlplusplus_FOUND)
+    FetchContent_Declare(
+            tomlplusplus
+            GIT_REPOSITORY https://github.com/marzer/tomlplusplus.git
+            GIT_TAG ${TCLAP_VERSION})
+    list(APPEND FETCH_PACKAGES tomlplusplus)
+  endif()
+endif()
+
 # Make all declared dependencies available.
 FetchContent_MakeAvailable(${FETCH_PACKAGES})

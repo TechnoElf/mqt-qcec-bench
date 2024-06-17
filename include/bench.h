@@ -5,30 +5,23 @@
 #pragma once
 
 #include "config.h"
+#include "instance.h"
 
 #include <chrono>
 #include <string>
 
 struct BenchmarkResults {
-  std::string name;
-
-  size_t runCount;
-  bool   runA;
-  bool   runB;
-
-  std::chrono::duration<double> avgAInitTime;
-  std::chrono::duration<double> avgARunTime;
-  std::chrono::duration<double> avgBInitTime;
-  std::chrono::duration<double> avgBRunTime;
-
-  size_t peakAUniqueTableSize;
-  size_t peakBUniqueTableSize;
+  std::vector<InstanceResults> rawResults;
 
 public:
   void print() const;
+  void save(std::fstream& out, const std::string& sep) const;
 };
 
-BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
-                              const std::string& b, const Configuration& confA,
-                              const Configuration& confB, size_t runCount,
-                              bool runA, bool runB);
+struct Benchmark {
+  std::vector<Instance> instances;
+
+public:
+  void                           add(const Instance&& instance);
+  [[nodiscard]] BenchmarkResults run(const Configuration& conf) const;
+};

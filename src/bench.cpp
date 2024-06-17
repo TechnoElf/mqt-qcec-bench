@@ -10,68 +10,40 @@
 #include <iostream>
 
 void BenchmarkResults::print() const {
-  std::cout << "BenchmarkResults {\n"
-            << "  name = " << this->name << "\n"
-            << "  runCount = " << this->runCount << "\n"
-            << "  runB = " << this->runB << "\n"
-            << "  runA = " << this->runA << "\n"
-            << "  avgAInitTime = " << this->avgAInitTime << "\n"
-            << "  avgARunTime = " << this->avgARunTime << "\n"
-            << "  avgBInitTime = " << this->avgBInitTime << "\n"
-            << "  avgBRunTime = " << this->avgBRunTime << "\n"
-            << "  peakAUniqueTableSize = " << this->peakAUniqueTableSize << "\n"
-            << "  peakBUniqueTableSize = " << this->peakBUniqueTableSize << "\n"
-            << "}\n";
+  std::cout << "BenchmarkResults:\n";
+  std::cout << std::left << std::setw(20) << "Benchmark" << " " << std::setw(20)
+            << "Run Time" << " " << std::setw(20) << "Equivalent" << "\n";
+  for (const InstanceResults& bench : rawResults) {
+    std::cout << std::setw(20) << bench.displayName << " " << std::setw(20)
+              << bench.runTime << " " << std::setw(20)
+              << (bench.equivalent ? "true" : "false") << "\n";
+  }
 }
 
-BenchmarkResults runBenchmark(const std::string& name, const std::string& a,
-                              const std::string& b, const Configuration& confA,
-                              const Configuration& confB, size_t runCount,
-                              bool runA, bool runB) {
-  std::cerr << "Running benchmark \"" << name << "\"\n";
+void BenchmarkResults::save(std::fstream& out, const std::string& sep) const {
+  out << "name" << sep << "runTime" << sep << "initTime" << sep
+      << "peakUniqueTableSize\n";
+  for (const InstanceResults& bench : rawResults) {
+    std::string runTime = std::format("{}", bench.runTime);
+    runTime.pop_back();
+    std::string initTime = std::format("{}", bench.initTime);
+    initTime.pop_back();
+    out << bench.displayName << sep << runTime << sep << initTime << sep
+        << bench.peakUniqueTableSize << "\n";
+  }
+}
 
-  std::vector<BenchmarkInstanceResults> resultsA;
-  std::vector<BenchmarkInstanceResults> resultsB;
+void Benchmark::add(const Instance&& instance) {
+  this->instances.push_back(instance);
+}
 
-  for (size_t i = 0; i < runCount; i++) {
-    if (runA) {
-      resultsA.push_back(runBenchmarkInstance(a, b, confA));
-      std::cerr << "A done.\n";
-    }
+BenchmarkResults Benchmark::run(const Configuration& conf) const {
+  std::vector<InstanceResults> rawResults;
 
-    if (runB) {
-      resultsB.push_back(runBenchmarkInstance(a, b, confB));
-      std::cerr << "B done.\n";
-    }
+  for (const auto& inst : this->instances) {
+    const InstanceResults res = inst.run(conf);
+    rawResults.push_back(res);
   }
 
-  std::chrono::duration<double> totalDiffInitTime{};
-  std::chrono::duration<double> totalDiffRunTime{};
-
-  for (const auto& res : resultsA) {
-    totalDiffInitTime += res.initTime;
-    totalDiffRunTime += res.runTime;
-  }
-
-  std::chrono::duration<double> totalPropInitTime{};
-  std::chrono::duration<double> totalPropRunTime{};
-
-  for (const auto& res : resultsB) {
-    totalPropInitTime += res.initTime;
-    totalPropRunTime += res.runTime;
-  }
-
-  return BenchmarkResults{
-      .name         = name,
-      .runCount     = runCount,
-      .runA         = runA,
-      .runB         = runB,
-      .avgAInitTime = totalDiffInitTime / runCount,
-      .avgARunTime  = totalDiffRunTime / runCount,
-      .avgBInitTime = totalPropInitTime / runCount,
-      .avgBRunTime  = totalPropRunTime / runCount,
-      .peakAUniqueTableSize =
-          resultsA.empty() ? 0 : resultsA[0].peakUniqueTableSize,
-      .peakBUniqueTableSize =
-          resultsB.empty() ? 0 : resultsB[0].peakUniqueTableSize};
+  return BenchmarkResults{.rawResults = rawResults};
 }
