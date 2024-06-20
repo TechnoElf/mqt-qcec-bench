@@ -1,0 +1,94 @@
+[random_01_ind_ng0]
+benchmark = "random"
+kind = "IndNg0"
+size = 1
+
+[random_02_ind_ng0]
+benchmark = "random"
+kind = "IndNg0"
+size = 2
+
+[random_04_ind_ng0]
+benchmark = "random"
+kind = "IndNg0"
+size = 4
+
+[random_08_ind_ng0]
+benchmark = "random"
+kind = "IndNg0"
+size = 8
+
+[dj_02_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 2
+
+[dj_04_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 4
+
+[dj_08_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 8
+
+[dj_16_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 16
+
+[dj_32_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 32
+
+[dj_64_ind_ng0]
+benchmark = "dj"
+kind = "IndNg0"
+size = 64
+
+[dj_08_ind_ng3]
+benchmark = "dj"
+kind = "IndNg3"
+size = 8
+
+[dj_08_ind_mp0]
+benchmark = "dj"
+kind = "IndMp0"
+size = 8
+
+[dj_08_ind_mp3]
+benchmark = "dj"
+kind = "IndMp3"
+size = 8
+
+[dj_08_ng0_ng3]
+benchmark = "dj"
+kind = "Ng0Ng3"
+size = 8
+
+[dj_08_ng0_mp0]
+benchmark = "dj"
+kind = "Ng0Mp0"
+size = 8
+
+[dj_08_ng0_mp3]
+benchmark = "dj"
+kind = "Ng0Mp3"
+size = 8
+
+[dj_08_ng3_mp0]
+benchmark = "dj"
+kind = "Ng3Mp0"
+size = 8
+
+[dj_08_ng3_mp3]
+benchmark = "dj"
+kind = "Ng3Mp3"
+size = 8
+
+[dj_08_mp0_mp3]
+benchmark = "dj"
+kind = "Mp0Mp3"
+size = 8

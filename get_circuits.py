@@ -3,11 +3,6 @@
 import sys
 import os
 
-from mqt.bench import CompilerSettings, QiskitSettings, get_benchmark
-from qiskit.qasm2 import dump as qasm2_dump
-from qiskit.qasm3 import dump as qasm3_dump
-
-
 def main(argc, argv):
     if (argc < 4):
         print("Usage: get_circuits.py <file prefix> <benchmark> <size>")
@@ -44,6 +39,9 @@ def get_circuits(file_prefix, benchmark, size):
 
     if "random" in benchmark:
         exists = False
+
+    from mqt.bench import CompilerSettings, QiskitSettings, get_benchmark
+    from qiskit.qasm2 import dump as qasm2_dump
 
     if not exists:
         for config in configurations:

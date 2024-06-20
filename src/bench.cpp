@@ -27,14 +27,16 @@ void BenchmarkResults::save(std::fstream& out, const std::string& sep) const {
       << "diffEquivalenceCount" << sep << "initTime" << sep << "runTime" << sep
       << "maxActiveNodes\n";
   for (const InstanceResults& bench : rawResults) {
+    std::string equivalent = bench.equivalent ? "true" : "false";
+    std::string deterministic = bench.deterministic ? "true" : "false";
+    std::string timeOut = std::format("{}", bench.timeOut);
+    timeOut.pop_back();
     std::string runTime = std::format("{}", bench.runTime);
     runTime.pop_back();
     std::string initTime = std::format("{}", bench.initTime);
     initTime.pop_back();
-    std::string timeOut = std::format("{}", bench.timeOut);
-    timeOut.pop_back();
     out << bench.displayName << sep << bench.runCount << sep << timeOut << sep
-        << bench.equivalent << sep << bench.deterministic << sep
+        << equivalent << sep << deterministic << sep
         << bench.numQubits1 << sep << bench.numQubits2 << sep << bench.numGates1
         << sep << bench.numGates2 << sep << bench.diffEquivalenceCount << sep
         << initTime << sep << runTime << sep << bench.maxActiveNodes << "\n";

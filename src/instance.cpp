@@ -36,8 +36,11 @@ InstanceResults Instance::run(const Configuration& conf) const {
 
   std::cerr << "Generating instance \"" << this->displayName << "\"\n";
 
+  const std::string fullBenchmarkName =
+      std::format("{}_{}", this->benchmarkName, this->size);
+
   if (std::system(std::format("./get_circuits.py circuits/{} {} {}",
-                              this->benchmarkName, this->benchmarkName,
+                              fullBenchmarkName, this->benchmarkName,
                               this->size)
                       .c_str()) != 0) {
     exit(1);
@@ -53,40 +56,40 @@ InstanceResults Instance::run(const Configuration& conf) const {
   case InstanceKind::IndNg3:
   case InstanceKind::IndMp0:
   case InstanceKind::IndMp3:
-    qc1.import(std::format("circuits/{}_ind.qasm", this->benchmarkName));
+    qc1.import(std::format("circuits/{}_ind.qasm", fullBenchmarkName));
     break;
   case InstanceKind::Ng0Ng3:
   case InstanceKind::Ng0Mp0:
   case InstanceKind::Ng0Mp3:
-    qc1.import(std::format("circuits/{}_ng0.qasm", this->benchmarkName));
+    qc1.import(std::format("circuits/{}_ng0.qasm", fullBenchmarkName));
     break;
   case InstanceKind::Ng3Mp0:
   case InstanceKind::Ng3Mp3:
-    qc1.import(std::format("circuits/{}_ng3.qasm", this->benchmarkName));
+    qc1.import(std::format("circuits/{}_ng3.qasm", fullBenchmarkName));
     break;
   case InstanceKind::Mp0Mp3:
-    qc1.import(std::format("circuits/{}_mp0.qasm", this->benchmarkName));
+    qc1.import(std::format("circuits/{}_mp0.qasm", fullBenchmarkName));
     break;
   }
 
   switch (*this->kind) {
   case InstanceKind::IndNg0:
-    qc2.import(std::format("circuits/{}_ng0.qasm", this->benchmarkName));
+    qc2.import(std::format("circuits/{}_ng0.qasm", fullBenchmarkName));
     break;
   case InstanceKind::IndNg3:
   case InstanceKind::Ng0Ng3:
-    qc2.import(std::format("circuits/{}_ng3.qasm", this->benchmarkName));
+    qc2.import(std::format("circuits/{}_ng3.qasm", fullBenchmarkName));
     break;
   case InstanceKind::IndMp0:
   case InstanceKind::Ng0Mp0:
   case InstanceKind::Ng3Mp0:
-    qc2.import(std::format("circuits/{}_mp0.qasm", this->benchmarkName));
+    qc2.import(std::format("circuits/{}_mp0.qasm", fullBenchmarkName));
     break;
   case InstanceKind::IndMp3:
   case InstanceKind::Ng0Mp3:
   case InstanceKind::Ng3Mp3:
   case InstanceKind::Mp0Mp3:
-    qc2.import(std::format("circuits/{}_mp3.qasm", this->benchmarkName));
+    qc2.import(std::format("circuits/{}_mp3.qasm", fullBenchmarkName));
     break;
   }
 

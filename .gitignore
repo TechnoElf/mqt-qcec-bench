@@ -169,11 +169,8 @@ Thumbs.db
 /docs/**/build
 .vs
 out/build
-results.csv
-results.svg
-time.svg
-nodes.svg
-time_nodes.svg
+/*.csv
+/*.svg
 /circuits/
 
 # nix
