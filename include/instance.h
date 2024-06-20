@@ -23,9 +23,11 @@ struct InstanceResults {
   size_t                        numGates2;
   size_t                        diffEquivalenceCount;
 
-  std::chrono::duration<double> initTime;
-  std::chrono::duration<double> runTime;
-  size_t                        maxActiveNodes;
+  double initTimeMean;
+  double initTimeVariance;
+  double runTimeMean;
+  double runTimeVariance;
+  size_t maxActiveNodes;
 
 public:
   void print() const;

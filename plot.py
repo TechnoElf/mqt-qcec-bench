@@ -20,8 +20,10 @@ class Instance:
     num_gates_1: int
     num_gates_2: int
     diff_equivalence_count: int
-    init_time: float
-    run_time: float
+    init_time_mean: float
+    init_time_variance: float
+    run_time_mean: float
+    run_time_variance: float
     max_active_nodes: int
 
     def __init__(self, row: dict):
@@ -35,8 +37,10 @@ class Instance:
         self.num_gates_1 = int(row["numGates1"])
         self.num_gates_2 = int(row["numGates2"])
         self.diff_equivalence_count = int(row["diffEquivalenceCount"])
-        self.init_time = float(row["initTime"])
-        self.run_time = float(row["runTime"])
+        self.init_time_mean = float(row["initTimeMean"])
+        self.init_time_variance = float(row["initTimeVariance"])
+        self.run_time_mean = float(row["runTimeMean"])
+        self.run_time_variance = float(row["runTimeVariance"])
         self.max_active_nodes = int(row["maxActiveNodes"])
 
 
@@ -55,12 +59,12 @@ def main(argc, argv):
     for i in range(len(data_diff)):
         data += [(data_diff[i], data_prop[i])]
 
-    run_time_improvement = [-(r[0].run_time / r[1].run_time * 100 - 100) for r in data]
+    run_time_improvement = [-(r[0].run_time_mean / r[1].run_time_mean * 100 - 100) for r in data]
     max_active_nodes_improvement = [-(r[0].max_active_nodes / r[1].max_active_nodes * 100 - 100) for r in data]
 
     fig, ax = plt.subplots()
-    ax.bar([r[0].name for r in data], [r[0].run_time for r in data], -0.35, align='edge', color = 'red')
-    ax.bar([r[1].name for r in data], [r[1].run_time for r in data], 0.35, align='edge', color = 'blue')
+    ax.bar([r[0].name for r in data], [r[0].run_time_mean for r in data], -0.35, align='edge', color = 'red')
+    ax.bar([r[1].name for r in data], [r[1].run_time_mean for r in data], 0.35, align='edge', color = 'blue')
     ax.set_title("Run Time Dependent on Benchmark")
 
     fig, ax = plt.subplots()
@@ -96,7 +100,7 @@ def main(argc, argv):
     ax.set_title("Run Time Improvement Dependent on Total Qubit Count")
 
     data_filtered = [r for r in data if abs(r[0].num_gates_1 - r[0].num_gates_2) < 100]
-    run_time_improvement_filtered = [-(r[0].run_time / r[1].run_time * 100 - 100) for r in data_filtered]
+    run_time_improvement_filtered = [-(r[0].run_time_mean / r[1].run_time_mean * 100 - 100) for r in data_filtered]
 
     fig, ax = plt.subplots()
     ax.bar([r[0].name for r in data_filtered], run_time_improvement_filtered)

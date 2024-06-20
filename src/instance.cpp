@@ -10,8 +10,8 @@ void InstanceResults::print() const {
   std::cout << "InstanceResults {\n"
             << "  name = " << this->displayName << "\n"
             << "  runCount = " << this->runCount << "\n"
-            << "  initTime = " << this->initTime << "\n"
-            << "  runTime = " << this->runTime << "\n"
+            << "  initTime = " << this->initTimeMean << "\n"
+            << "  runTime = " << this->runTimeMean << "\n"
             << "  maxActiveNodes = " << this->maxActiveNodes << "\n"
             << "}\n";
 }
@@ -27,11 +27,11 @@ InstanceKind InstanceKind::fromStr(const std::string& str) {
 
 InstanceResults Instance::run(const Configuration& conf) const {
   if (this->runCount == 0) {
-    return InstanceResults{.displayName = this->displayName,
-                           .runCount    = this->runCount,
-                           .timeOut     = this->timeOut,
-                           .initTime    = this->timeOut,
-                           .runTime     = this->timeOut};
+    return InstanceResults{.displayName  = this->displayName,
+                           .runCount     = this->runCount,
+                           .timeOut      = this->timeOut,
+                           .initTimeMean = this->timeOut.count(),
+                           .runTimeMean  = this->timeOut.count()};
   }
 
   std::cerr << "Generating instance \"" << this->displayName << "\"\n";
@@ -93,17 +93,17 @@ InstanceResults Instance::run(const Configuration& conf) const {
     break;
   }
 
-  std::vector<bool>                          equivalent;
-  std::vector<size_t>                        numQubits1;
-  std::vector<size_t>                        numQubits2;
-  std::vector<size_t>                        numGates1;
-  std::vector<size_t>                        numGates2;
-  std::vector<size_t>                        diffEquivalenceCount;
-  std::vector<std::chrono::duration<double>> initTime;
-  std::vector<std::chrono::duration<double>> runTime;
-  std::vector<size_t>                        maxActiveNodes;
+  std::vector<bool>   equivalent;
+  std::vector<size_t> numQubits1;
+  std::vector<size_t> numQubits2;
+  std::vector<size_t> numGates1;
+  std::vector<size_t> numGates2;
+  std::vector<size_t> diffEquivalenceCount;
+  std::vector<double> initTime;
+  std::vector<double> runTime;
+  std::vector<size_t> maxActiveNodes;
 
-  for (size_t i = 0; i < runCount; i++) {
+  {
     const auto timeBegin = std::chrono::high_resolution_clock::now();
     ec::EquivalenceCheckingManager ecm(qc1, qc2, conf.ecConfig);
     const auto timeAfterInit = std::chrono::high_resolution_clock::now();
@@ -116,18 +116,46 @@ InstanceResults Instance::run(const Configuration& conf) const {
     numGates1.push_back(ecm.getResults().numGates1);
     numGates2.push_back(ecm.getResults().numGates2);
     diffEquivalenceCount.push_back(ecm.getResults().diffEquivalenceCount);
-    initTime.emplace_back(timeAfterInit - timeBegin);
-    runTime.emplace_back(timeEnd - timeAfterInit);
+    initTime.emplace_back(
+        std::chrono::duration<double>(timeAfterInit - timeBegin).count());
+    runTime.emplace_back(
+        std::chrono::duration<double>(timeEnd - timeAfterInit).count());
     maxActiveNodes.push_back(ecm.getResults().maxActiveNodes);
   }
 
-  bool                          deterministic = true;
-  std::chrono::duration<double> totalInitTime = {};
-  std::chrono::duration<double> totalRunTime  = {};
+  size_t realRunCount = std::max(
+      static_cast<size_t>(std::floor(1.0 / (initTime[0] + runTime[0]))),
+      this->runCount);
 
-  for (size_t i = 0; i < this->runCount; i++) {
+  for (size_t i = 0; i < realRunCount - 1; i++) {
+    const auto timeBegin = std::chrono::high_resolution_clock::now();
+    ec::EquivalenceCheckingManager ecm(qc1, qc2, conf.ecConfig);
+    const auto timeAfterInit = std::chrono::high_resolution_clock::now();
+    ecm.run();
+    const auto timeEnd = std::chrono::high_resolution_clock::now();
+
+    equivalent.push_back(ecm.getResults().consideredEquivalent());
+    numQubits1.push_back(ecm.getResults().numQubits1);
+    numQubits2.push_back(ecm.getResults().numQubits2);
+    numGates1.push_back(ecm.getResults().numGates1);
+    numGates2.push_back(ecm.getResults().numGates2);
+    diffEquivalenceCount.push_back(ecm.getResults().diffEquivalenceCount);
+    initTime.emplace_back(
+        std::chrono::duration<double>(timeAfterInit - timeBegin).count());
+    runTime.emplace_back(
+        std::chrono::duration<double>(timeEnd - timeAfterInit).count());
+    maxActiveNodes.push_back(ecm.getResults().maxActiveNodes);
+  }
+
+  bool   deterministic       = true;
+  double totalInitTime       = 0.0;
+  double totalRunTime        = 0.0;
+  size_t totalMaxActiveNodes = 0;
+
+  for (size_t i = 0; i < realRunCount; i++) {
     totalInitTime += initTime[i];
     totalRunTime += runTime[i];
+    totalMaxActiveNodes += maxActiveNodes[i];
 
     if (i > 0) {
       deterministic &= equivalent[i] == equivalent[i - 1];
@@ -139,23 +167,31 @@ InstanceResults Instance::run(const Configuration& conf) const {
     }
   }
 
-  size_t totalMaxActiveNodes = 0;
-  for (const auto size : maxActiveNodes) {
-    totalMaxActiveNodes += size;
+  double initTimeMean = totalInitTime / static_cast<double>(realRunCount);
+  double runTimeMean  = totalRunTime / static_cast<double>(realRunCount);
+  totalInitTime       = 0.0;
+  totalRunTime        = 0.0;
+
+  for (size_t i = 0; i < realRunCount; i++) {
+    totalInitTime +=
+        (initTime[i] - initTimeMean) * (initTime[i] - initTimeMean);
+    totalRunTime += (runTime[i] - runTimeMean) * (runTime[i] - runTimeMean);
   }
 
-  return InstanceResults{.displayName          = this->displayName,
-                         .runCount             = this->runCount,
-                         .timeOut              = this->timeOut,
-                         .equivalent           = equivalent[0],
-                         .deterministic        = deterministic,
-                         .numQubits1           = numQubits1[0],
-                         .numQubits2           = numQubits2[0],
-                         .numGates1            = numGates1[0],
-                         .numGates2            = numGates2[0],
-                         .diffEquivalenceCount = diffEquivalenceCount[0],
-                         .initTime             = totalInitTime / this->runCount,
-                         .runTime              = totalRunTime / this->runCount,
-                         .maxActiveNodes =
-                             totalMaxActiveNodes / this->runCount};
+  return InstanceResults{
+      .displayName          = this->displayName,
+      .runCount             = realRunCount,
+      .timeOut              = this->timeOut,
+      .equivalent           = equivalent[0],
+      .deterministic        = deterministic,
+      .numQubits1           = numQubits1[0],
+      .numQubits2           = numQubits2[0],
+      .numGates1            = numGates1[0],
+      .numGates2            = numGates2[0],
+      .diffEquivalenceCount = diffEquivalenceCount[0],
+      .initTimeMean         = initTimeMean,
+      .initTimeVariance     = totalInitTime / static_cast<double>(realRunCount),
+      .runTimeMean          = runTimeMean,
+      .runTimeVariance      = totalRunTime / static_cast<double>(realRunCount),
+      .maxActiveNodes       = totalMaxActiveNodes / realRunCount};
 }
