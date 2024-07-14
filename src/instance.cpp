@@ -104,27 +104,54 @@ InstanceResults Instance::run(const Configuration& conf) const {
   std::vector<size_t> maxActiveNodes;
 
   {
-    const auto timeBegin = std::chrono::high_resolution_clock::now();
-    ec::EquivalenceCheckingManager ecm(qc1, qc2, conf.ecConfig);
-    const auto timeAfterInit = std::chrono::high_resolution_clock::now();
-    ecm.run();
-    const auto timeEnd = std::chrono::high_resolution_clock::now();
+    auto timeBegin = std::chrono::high_resolution_clock::now();
+    auto timeAfterInit = timeBegin;
+    auto timeEnd = timeBegin;
 
-    equivalent.push_back(ecm.getResults().consideredEquivalent());
-    numQubits1.push_back(ecm.getResults().numQubits1);
-    numQubits2.push_back(ecm.getResults().numQubits2);
-    numGates1.push_back(ecm.getResults().numGates1);
-    numGates2.push_back(ecm.getResults().numGates2);
-    diffEquivalenceCount.push_back(ecm.getResults().diffEquivalenceCount);
-    initTime.emplace_back(
-        std::chrono::duration<double>(timeAfterInit - timeBegin).count());
-    runTime.emplace_back(
-        std::chrono::duration<double>(timeEnd - timeAfterInit).count());
-    maxActiveNodes.push_back(ecm.getResults().maxActiveNodes);
+    std::packaged_task<ec::EquivalenceCheckingManager::Results()> task([&](){
+      timeBegin = std::chrono::high_resolution_clock::now();
+      ec::EquivalenceCheckingManager ecm(qc1, qc2, conf.ecConfig);
+      timeAfterInit = std::chrono::high_resolution_clock::now();
+      ecm.run();
+      timeEnd = std::chrono::high_resolution_clock::now();
+      return ecm.getResults();
+    });
+    std::future<ec::EquivalenceCheckingManager::Results> future = task.get_future();
+    std::thread thread(std::move(task));
+    if (future.wait_for(this->timeOut) != std::future_status::timeout) {
+      thread.join();
+      auto results = future.get();
+      
+      equivalent.push_back(results.consideredEquivalent());
+      numQubits1.push_back(results.numQubits1);
+      numQubits2.push_back(results.numQubits2);
+      numGates1.push_back(results.numGates1);
+      numGates2.push_back(results.numGates2);
+      diffEquivalenceCount.push_back(results.diffEquivalenceCount);
+      initTime.emplace_back(
+          std::chrono::duration<double>(timeAfterInit - timeBegin).count());
+      runTime.emplace_back(
+          std::chrono::duration<double>(timeEnd - timeAfterInit).count());
+      maxActiveNodes.push_back(results.maxActiveNodes);
+    } else {
+      auto handle = thread.native_handle();
+      thread.detach();
+      pthread_cancel(handle);
+
+      equivalent.push_back(false);
+      numQubits1.push_back(qc1.getNqubits());
+      numQubits2.push_back(qc2.getNqubits());
+      numGates1.push_back(qc1.getNops());
+      numGates2.push_back(qc2.getNops());
+      diffEquivalenceCount.push_back(0);
+      initTime.emplace_back(this->timeOut.count());
+      runTime.emplace_back(this->timeOut.count());
+      maxActiveNodes.push_back(0);
+    }
   }
 
   size_t realRunCount = std::max(
-      static_cast<size_t>(std::floor(1.0 / (initTime[0] + runTime[0]))),
+      static_cast<size_t>(std::floor(5.0 / (initTime[0] + runTime[0]))),
       this->runCount);
 
   for (size_t i = 0; i < realRunCount - 1; i++) {

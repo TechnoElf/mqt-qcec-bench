@@ -15,3 +15,8 @@ size = 2
 benchmark = "tsp"
 kind = "Ng0Ng3"
 size = 2
+
+[qft_08_ind_mp0]
+benchmark = "qft"
+kind = "IndMp0"
+size = 8

@@ -81,7 +81,7 @@ struct Instance {
   size_t       size = 8;
 
   size_t                        runCount = 1;
-  std::chrono::duration<double> timeOut  = std::chrono::seconds(10);
+  std::chrono::duration<double> timeOut  = std::chrono::seconds(20);
 
 public:
   InstanceResults run(const Configuration& conf) const;

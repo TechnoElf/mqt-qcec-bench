@@ -37,13 +37,10 @@ def get_circuits(file_prefix, benchmark, size):
             exists = False
             break
 
-    if "random" in benchmark:
-        exists = False
-
-    from mqt.bench import CompilerSettings, QiskitSettings, get_benchmark
-    from qiskit.qasm2 import dump as qasm2_dump
-
     if not exists:
+        from mqt.bench import CompilerSettings, QiskitSettings, get_benchmark
+        from qiskit.qasm2 import dump as qasm2_dump
+
         for config in configurations:
             settings = CompilerSettings(qiskit=QiskitSettings(optimization_level=config[2]))
 

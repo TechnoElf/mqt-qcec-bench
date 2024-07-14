@@ -61,7 +61,7 @@
         '';
       }).env;
 
-      packages.default = pkgs.mkDerivation {};
+      packages.default = pkgs.hello;
     }
   );
 }
