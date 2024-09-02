@@ -2,749 +2,1049 @@
 benchmark = "portfolioqaoa"
 kind = "IndNg0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ind_ng0]
 benchmark = "portfolioqaoa"
 kind = "IndNg0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ind_ng0]
 benchmark = "portfolioqaoa"
 kind = "IndNg0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ind_ng3]
 benchmark = "portfolioqaoa"
 kind = "IndNg3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ind_ng3]
 benchmark = "portfolioqaoa"
 kind = "IndNg3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ind_ng3]
 benchmark = "portfolioqaoa"
 kind = "IndNg3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ind_mp0]
 benchmark = "portfolioqaoa"
 kind = "IndMp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ind_mp0]
 benchmark = "portfolioqaoa"
 kind = "IndMp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ind_mp0]
 benchmark = "portfolioqaoa"
 kind = "IndMp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ind_mp3]
 benchmark = "portfolioqaoa"
 kind = "IndMp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ind_mp3]
 benchmark = "portfolioqaoa"
 kind = "IndMp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ind_mp3]
 benchmark = "portfolioqaoa"
 kind = "IndMp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ng0_ng3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Ng3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ng0_ng3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Ng3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ng0_ng3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Ng3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ng0_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ng0_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ng0_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ng0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ng0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ng0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ng3_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ng3_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ng3_mp0]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_ng3_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_ng3_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_ng3_mp3]
 benchmark = "portfolioqaoa"
 kind = "Ng3Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_04_mp0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Mp0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_08_mp0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Mp0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfolioqaoa_16_mp0_mp3]
 benchmark = "portfolioqaoa"
 kind = "Mp0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ind_ng0]
 benchmark = "portfoliovqe"
 kind = "IndNg0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ind_ng0]
 benchmark = "portfoliovqe"
 kind = "IndNg0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ind_ng0]
 benchmark = "portfoliovqe"
 kind = "IndNg0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ind_ng3]
 benchmark = "portfoliovqe"
 kind = "IndNg3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ind_ng3]
 benchmark = "portfoliovqe"
 kind = "IndNg3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ind_ng3]
 benchmark = "portfoliovqe"
 kind = "IndNg3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ind_mp0]
 benchmark = "portfoliovqe"
 kind = "IndMp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ind_mp0]
 benchmark = "portfoliovqe"
 kind = "IndMp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ind_mp0]
 benchmark = "portfoliovqe"
 kind = "IndMp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ind_mp3]
 benchmark = "portfoliovqe"
 kind = "IndMp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ind_mp3]
 benchmark = "portfoliovqe"
 kind = "IndMp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ind_mp3]
 benchmark = "portfoliovqe"
 kind = "IndMp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ng0_ng3]
 benchmark = "portfoliovqe"
 kind = "Ng0Ng3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ng0_ng3]
 benchmark = "portfoliovqe"
 kind = "Ng0Ng3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ng0_ng3]
 benchmark = "portfoliovqe"
 kind = "Ng0Ng3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ng0_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ng0_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ng0_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ng0_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ng0_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ng0_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ng3_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ng3_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ng3_mp0]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_ng3_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_ng3_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_ng3_mp3]
 benchmark = "portfoliovqe"
 kind = "Ng3Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_04_mp0_mp3]
 benchmark = "portfoliovqe"
 kind = "Mp0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_08_mp0_mp3]
 benchmark = "portfoliovqe"
 kind = "Mp0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [portfoliovqe_16_mp0_mp3]
 benchmark = "portfoliovqe"
 kind = "Mp0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ind_ng0]
 benchmark = "qnn"
 kind = "IndNg0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ind_ng0]
 benchmark = "qnn"
 kind = "IndNg0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ind_ng0]
 benchmark = "qnn"
 kind = "IndNg0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ind_ng3]
 benchmark = "qnn"
 kind = "IndNg3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ind_ng3]
 benchmark = "qnn"
 kind = "IndNg3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ind_ng3]
 benchmark = "qnn"
 kind = "IndNg3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ind_mp0]
 benchmark = "qnn"
 kind = "IndMp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ind_mp0]
 benchmark = "qnn"
 kind = "IndMp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ind_mp0]
 benchmark = "qnn"
 kind = "IndMp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ind_mp3]
 benchmark = "qnn"
 kind = "IndMp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ind_mp3]
 benchmark = "qnn"
 kind = "IndMp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ind_mp3]
 benchmark = "qnn"
 kind = "IndMp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ng0_ng3]
 benchmark = "qnn"
 kind = "Ng0Ng3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ng0_ng3]
 benchmark = "qnn"
 kind = "Ng0Ng3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ng0_ng3]
 benchmark = "qnn"
 kind = "Ng0Ng3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ng0_mp0]
 benchmark = "qnn"
 kind = "Ng0Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ng0_mp0]
 benchmark = "qnn"
 kind = "Ng0Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ng0_mp0]
 benchmark = "qnn"
 kind = "Ng0Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ng0_mp3]
 benchmark = "qnn"
 kind = "Ng0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ng0_mp3]
 benchmark = "qnn"
 kind = "Ng0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ng0_mp3]
 benchmark = "qnn"
 kind = "Ng0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ng3_mp0]
 benchmark = "qnn"
 kind = "Ng3Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ng3_mp0]
 benchmark = "qnn"
 kind = "Ng3Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ng3_mp0]
 benchmark = "qnn"
 kind = "Ng3Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_ng3_mp3]
 benchmark = "qnn"
 kind = "Ng3Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_ng3_mp3]
 benchmark = "qnn"
 kind = "Ng3Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_ng3_mp3]
 benchmark = "qnn"
 kind = "Ng3Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qnn_04_mp0_mp3]
 benchmark = "qnn"
 kind = "Mp0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qnn_08_mp0_mp3]
 benchmark = "qnn"
 kind = "Mp0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qnn_16_mp0_mp3]
 benchmark = "qnn"
 kind = "Mp0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ind_ng0]
 benchmark = "qft"
 kind = "IndNg0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ind_ng0]
 benchmark = "qft"
 kind = "IndNg0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ind_ng0]
 benchmark = "qft"
 kind = "IndNg0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ind_ng3]
 benchmark = "qft"
 kind = "IndNg3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ind_ng3]
 benchmark = "qft"
 kind = "IndNg3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ind_ng3]
 benchmark = "qft"
 kind = "IndNg3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ind_mp0]
 benchmark = "qft"
 kind = "IndMp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ind_mp0]
 benchmark = "qft"
 kind = "IndMp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ind_mp0]
 benchmark = "qft"
 kind = "IndMp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ind_mp3]
 benchmark = "qft"
 kind = "IndMp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ind_mp3]
 benchmark = "qft"
 kind = "IndMp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ind_mp3]
 benchmark = "qft"
 kind = "IndMp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ng0_ng3]
 benchmark = "qft"
 kind = "Ng0Ng3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ng0_ng3]
 benchmark = "qft"
 kind = "Ng0Ng3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ng0_ng3]
 benchmark = "qft"
 kind = "Ng0Ng3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ng0_mp0]
 benchmark = "qft"
 kind = "Ng0Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ng0_mp0]
 benchmark = "qft"
 kind = "Ng0Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ng0_mp0]
 benchmark = "qft"
 kind = "Ng0Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ng0_mp3]
 benchmark = "qft"
 kind = "Ng0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ng0_mp3]
 benchmark = "qft"
 kind = "Ng0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ng0_mp3]
 benchmark = "qft"
 kind = "Ng0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ng3_mp0]
 benchmark = "qft"
 kind = "Ng3Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ng3_mp0]
 benchmark = "qft"
 kind = "Ng3Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ng3_mp0]
 benchmark = "qft"
 kind = "Ng3Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_ng3_mp3]
 benchmark = "qft"
 kind = "Ng3Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_ng3_mp3]
 benchmark = "qft"
 kind = "Ng3Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_ng3_mp3]
 benchmark = "qft"
 kind = "Ng3Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [qft_04_mp0_mp3]
 benchmark = "qft"
 kind = "Mp0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [qft_08_mp0_mp3]
 benchmark = "qft"
 kind = "Mp0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [qft_16_mp0_mp3]
 benchmark = "qft"
 kind = "Mp0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ind_ng0]
 benchmark = "dj"
 kind = "IndNg0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ind_ng0]
 benchmark = "dj"
 kind = "IndNg0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ind_ng0]
 benchmark = "dj"
 kind = "IndNg0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ind_ng3]
 benchmark = "dj"
 kind = "IndNg3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ind_ng3]
 benchmark = "dj"
 kind = "IndNg3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ind_ng3]
 benchmark = "dj"
 kind = "IndNg3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ind_mp0]
 benchmark = "dj"
 kind = "IndMp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ind_mp0]
 benchmark = "dj"
 kind = "IndMp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ind_mp0]
 benchmark = "dj"
 kind = "IndMp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ind_mp3]
 benchmark = "dj"
 kind = "IndMp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ind_mp3]
 benchmark = "dj"
 kind = "IndMp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ind_mp3]
 benchmark = "dj"
 kind = "IndMp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ng0_ng3]
 benchmark = "dj"
 kind = "Ng0Ng3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ng0_ng3]
 benchmark = "dj"
 kind = "Ng0Ng3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ng0_ng3]
 benchmark = "dj"
 kind = "Ng0Ng3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ng0_mp0]
 benchmark = "dj"
 kind = "Ng0Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ng0_mp0]
 benchmark = "dj"
 kind = "Ng0Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ng0_mp0]
 benchmark = "dj"
 kind = "Ng0Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ng0_mp3]
 benchmark = "dj"
 kind = "Ng0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ng0_mp3]
 benchmark = "dj"
 kind = "Ng0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ng0_mp3]
 benchmark = "dj"
 kind = "Ng0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ng3_mp0]
 benchmark = "dj"
 kind = "Ng3Mp0"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ng3_mp0]
 benchmark = "dj"
 kind = "Ng3Mp0"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ng3_mp0]
 benchmark = "dj"
 kind = "Ng3Mp0"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_ng3_mp3]
 benchmark = "dj"
 kind = "Ng3Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_ng3_mp3]
 benchmark = "dj"
 kind = "Ng3Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_ng3_mp3]
 benchmark = "dj"
 kind = "Ng3Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 
 [dj_04_mp0_mp3]
 benchmark = "dj"
 kind = "Mp0Mp3"
 size = 4
+timeOut = 30
+runCount = 3
 
 [dj_08_mp0_mp3]
 benchmark = "dj"
 kind = "Mp0Mp3"
 size = 8
+timeOut = 30
+runCount = 3
 
 [dj_16_mp0_mp3]
 benchmark = "dj"
 kind = "Mp0Mp3"
 size = 16
+timeOut = 30
+runCount = 3
 

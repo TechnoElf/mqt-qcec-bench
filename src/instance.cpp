@@ -153,6 +153,9 @@ InstanceResults Instance::run(const Configuration& conf) const {
   size_t realRunCount = std::max(
       static_cast<size_t>(std::floor(5.0 / (initTime[0] + runTime[0]))),
       this->runCount);
+  if (runTime[0] == this->timeOut.count()) {
+    realRunCount = 1;
+  }
 
   for (size_t i = 0; i < realRunCount - 1; i++) {
     const auto timeBegin = std::chrono::high_resolution_clock::now();

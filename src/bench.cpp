@@ -22,18 +22,20 @@ void BenchmarkResults::print() const {
 
 void BenchmarkResults::save(std::fstream& out, const std::string& sep) const {
   out << "name" << sep << "runCount" << sep << "timeOut" << sep << "equivalent"
-      << sep << "deterministic" << sep << "numQubits1" << sep << "numQubits2"
-      << sep << "numGates1" << sep << "numGates2" << sep
+      << sep << "deterministic" << sep << "finished" << sep << "numQubits1"
+      << sep << "numQubits2" << sep << "numGates1" << sep << "numGates2" << sep
       << "diffEquivalenceCount" << sep << "initTimeMean" << sep
       << "initTimeVariance" << sep << "runTimeMean" << sep << "runTimeVariance"
       << sep << "maxActiveNodes\n";
   for (const InstanceResults& bench : rawResults) {
     std::string equivalent    = bench.equivalent ? "true" : "false";
     std::string deterministic = bench.deterministic ? "true" : "false";
+    std::string finished =
+        (bench.runTimeMean != bench.timeOut.count()) ? "true" : "false";
     out << bench.displayName << sep << bench.runCount << sep
         << bench.timeOut.count() << sep << equivalent << sep << deterministic
-        << sep << bench.numQubits1 << sep << bench.numQubits2 << sep
-        << bench.numGates1 << sep << bench.numGates2 << sep
+        << sep << finished << sep << bench.numQubits1 << sep << bench.numQubits2
+        << sep << bench.numGates1 << sep << bench.numGates2 << sep
         << bench.diffEquivalenceCount << sep << bench.initTimeMean << sep
         << bench.initTimeVariance << sep << bench.runTimeMean << sep
         << bench.runTimeVariance << sep << bench.maxActiveNodes << "\n";

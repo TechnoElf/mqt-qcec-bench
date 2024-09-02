@@ -35,13 +35,18 @@ Benchmark parseBenchmarkArg(const TCLAP::ValueArg<std::string>&& arg) {
         std::exit(1);
       }
 
-      std::string kind = subTable["kind"].value_or("");
-      size_t      size = subTable["size"].value_or(8UL);
+      std::string                   kind    = subTable["kind"].value_or("");
+      size_t                        size    = subTable["size"].value_or(8UL);
+      std::chrono::duration<double> timeOut = std::chrono::milliseconds(
+          static_cast<int64_t>(subTable["timeOut"].value_or(20.0) * 1000.0));
+      size_t runCount = subTable["runCount"].value_or(1UL);
 
       benchmark.add({.displayName   = std::string(node.first.str()),
                      .benchmarkName = name.value(),
                      .kind          = InstanceKind::fromStr(kind),
-                     .size          = size});
+                     .size          = size,
+                     .runCount      = runCount,
+                     .timeOut       = timeOut});
     } else {
       std::cerr << "error: field " << node.first
                 << " is not part of a benchmark table\n";

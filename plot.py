@@ -15,6 +15,7 @@ class Instance:
     time_out: float
     equivalent: bool
     deterministic: bool
+    finished: bool
     num_qubits_1: int
     num_qubits_2: int
     num_gates_1: int
@@ -32,6 +33,7 @@ class Instance:
         self.time_out = int(row["timeOut"])
         self.equivalent = bool(row["equivalent"])
         self.deterministic = bool(row["deterministic"])
+        self.finished = bool(row["finished"])
         self.num_qubits_1 = int(row["numQubits1"])
         self.num_qubits_2 = int(row["numQubits2"])
         self.num_gates_1 = int(row["numGates1"])
@@ -59,8 +61,13 @@ def main(argc, argv):
     for i in range(len(data_diff)):
         data += [(data_diff[i], data_prop[i])]
 
+    data = [r for r in data if r[0].finished and r[1].finished]
+
     run_time_improvement = [-(r[0].run_time_mean / r[1].run_time_mean * 100 - 100) for r in data]
     max_active_nodes_improvement = [0 if r[1].max_active_nodes == 0 else -(r[0].max_active_nodes / r[1].max_active_nodes * 100 - 100) for r in data]
+
+    fig, ax = plt.subplots()
+    ax.hist(run_time_improvement, bins=10)
 
     fig, ax = plt.subplots()
     ax.bar([r[0].name for r in data], [r[0].run_time_mean for r in data], -0.35, align='edge', color = 'red')
@@ -99,7 +106,8 @@ def main(argc, argv):
     ax.grid(True)
     ax.set_title("Run Time Improvement Dependent on Total Qubit Count")
 
-    data_filtered = [r for r in data if abs(r[0].num_gates_1 - r[0].num_gates_2) < 100]
+    data_filtered = data
+    #data_filtered = [r for r in data_filtered if abs(r[0].num_gates_1 - r[0].num_gates_2) < 100]
     data_filtered = [r for r in data_filtered if r[0].diff_equivalence_count / (r[0].num_gates_1 + r[0].num_gates_2) > 0.4]
     run_time_improvement_filtered = [-(r[0].run_time_mean / r[1].run_time_mean * 100 - 100) for r in data_filtered]
 
